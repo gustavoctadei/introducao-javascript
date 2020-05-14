@@ -10,8 +10,7 @@ botaoAdicionar.addEventListener("click", function(event){
     var erros = validaPaciente(paciente);
 
     if (erros.length > 0) {
-        var mensagemErro = document.querySelector("#mensagem-erro");
-        mensagemErro.textContent = erro;
+        exibeMensagensDeErro(erros);
         return;
     }
     
@@ -19,6 +18,7 @@ botaoAdicionar.addEventListener("click", function(event){
     tabela.appendChild(pacienteTr);
 
     form.reset();
+    document.querySelector("#mensagens-erro").innerHTML = "";
 });
 
 function obtemPacienteDoFormulario(form) {
@@ -57,8 +57,21 @@ function montaTd(dado, classe) {
 function validaPaciente(paciente) {
     var erros = [];
 
-    if(!validaPeso(paciente.peso)) erros.push("Peso inválido");
-    if(!validaAltura(paciente.altura)) erros.push("Altura inválida");
+    if(paciente.nome.length == 0) erros.push("Verifique o campo nome");
+    if(paciente.peso.length == 0 || !validaPeso(paciente.peso)) erros.push("Verifique o campo peso");
+    if(paciente.altura.length == 0 || !validaAltura(paciente.altura)) erros.push("Verifique o campo altura");
+    if(paciente.gordura.length == 0) erros.push("Verifique o campo % de gordura");
 
     return erros;
+}
+
+function exibeMensagensDeErro(erros) {
+    var ul = document.querySelector("#mensagens-erro");
+    ul.innerHTML = "";
+
+    erros.forEach(function(erro) {
+        var li = document.createElement("li");
+        li.textContent = erro;
+        ul.appendChild(li);
+    });
 }
