@@ -24,9 +24,14 @@ for(var i = 0; i < pacientes.length; i++) {
     }
 
     if(pesoValido && alturaValida){
-        var valorImc = peso / (altura * altura);
-        imc.textContent = valorImc.toFixed(2);
+        imc.textContent = calculaImc(peso, altura);
     }
+}
+
+function calculaImc(peso, altura) {
+    var imc = 0;
+    imc = peso / (altura * altura);
+    return imc.toFixed(2);
 }
 
 //Função Nomeada
