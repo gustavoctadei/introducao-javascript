@@ -31,3 +31,5 @@ botaoImportar.addEventListener("click", function(){
     });
     xhr.send();
 });
+
+//Encerramento
